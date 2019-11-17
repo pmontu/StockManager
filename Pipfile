@@ -12,5 +12,6 @@ django-heroku = "*"
 gunicorn = "*"
 djangorestframework = "*"
 celery = "*"
+django-eventstream = "*"
 
 [dev-packages]

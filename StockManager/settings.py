@@ -42,9 +42,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'stocks',
     'rest_framework',
+    'channels',
+    'django_eventstream',
 ]
 
 MIDDLEWARE = [
+    'django_grip.GripMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -56,6 +59,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'StockManager.urls'
+ASGI_APPLICATION = 'StockManager.routing.application'
 
 TEMPLATES = [
     {
