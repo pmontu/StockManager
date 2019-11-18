@@ -61,6 +61,16 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'StockManager.urls'
 ASGI_APPLICATION = 'StockManager.routing.application'
 
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379')],
+        },
+        "ROUTING": "StockManager.routing.channel_routing",
+    },
+}
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
