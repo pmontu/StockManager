@@ -1,1 +1,1 @@
-web: gunicorn StockManager.wsgi
+web: daphne StockManager.asgi:application
