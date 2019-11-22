@@ -13,5 +13,6 @@ gunicorn = "*"
 djangorestframework = "*"
 celery = "*"
 django-eventstream = "*"
+channels-redis = "*"
 
 [dev-packages]
