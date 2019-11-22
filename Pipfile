@@ -14,5 +14,6 @@ djangorestframework = "*"
 celery = "*"
 django-eventstream = "*"
 channels-redis = "*"
+django-cors-headers = "*"
 
 [dev-packages]

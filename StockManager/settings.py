@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'channels',
     'django_eventstream',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -51,6 +52,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -137,18 +139,24 @@ DATABASES['default'].update(dj_database_url.config(
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Allow all host headers
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['http://localhost',
+                 'https://manoj-stock-manager.herokuapp.com']
+
+CORS_ORIGIN_WHITELIST = [
+    "http://localhost",
+    "https://manoj-stock-manager.herokuapp.com",
+]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
 # Extra places for collectstatic to find static files.
-# STATICFILES_DIRS = [
-#     os.path.join(PROJECT_ROOT, 'static'),
-# ]
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'build'),
+]
 
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
