@@ -22,7 +22,7 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "6%eoxlx4v8j)5$wx$fjw^*^b43x=0i6bvkc+9_=4_z9pmx)z3+"
+SECRET_KEY = os.environ["SECRET"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -45,12 +45,8 @@ INSTALLED_APPS = [
     'channels',
     'django_eventstream',
     'corsheaders',
+    'django_extensions',
 ]
-
-if INSTALLED_APPS:
-    INSTALLED_APPS.extend([
-        'django_extensions',
-    ])
 
 MIDDLEWARE = [
     'django_grip.GripMiddleware',

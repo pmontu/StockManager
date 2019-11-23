@@ -15,5 +15,7 @@ celery = "*"
 django-eventstream = "*"
 channels-redis = "*"
 django-cors-headers = "*"
+django-extensions = "*"
 
 [dev-packages]
+django-extensions = "*"
