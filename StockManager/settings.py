@@ -47,6 +47,11 @@ INSTALLED_APPS = [
     'corsheaders',
 ]
 
+if INSTALLED_APPS:
+    INSTALLED_APPS.extend([
+        'django_extensions',
+    ])
+
 MIDDLEWARE = [
     'django_grip.GripMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -148,7 +153,7 @@ CORS_ORIGIN_WHITELIST = [
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
 # Extra places for collectstatic to find static files.
