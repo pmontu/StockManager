@@ -139,12 +139,11 @@ DATABASES['default'].update(dj_database_url.config(
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Allow all host headers
-ALLOWED_HOSTS = ['http://localhost',
+ALLOWED_HOSTS = ['http://localhost:3000',
                  'https://manoj-stock-manager.herokuapp.com']
 
 CORS_ORIGIN_WHITELIST = [
-    "http://localhost",
-    "https://manoj-stock-manager.herokuapp.com",
+    "http://localhost:3000",
 ]
 
 # Static files (CSS, JavaScript, Images)
