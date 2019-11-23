@@ -34,3 +34,5 @@ yarn-error.log*
 
 *.ipynb
 .ipynb_checkpoints/
+
+/StockManager/settings/dev.py
