@@ -1,4 +1,4 @@
-from .views import ProductViewSet, upload_view
+from .views import ProductViewSet, upload_view, delete_all
 from rest_framework.routers import DefaultRouter
 from django.urls import path
 
@@ -7,5 +7,6 @@ router.register(r'products', ProductViewSet, basename='product')
 urlpatterns = router.urls
 
 urlpatterns += [
-    path('upload-product-csv/', upload_view)
+    path('upload-product-csv/', upload_view),
+    path('products', delete_all)
 ]
