@@ -12,7 +12,7 @@ from rest_framework.response import Response
 
 class ProductViewSet(ModelViewSet):
     serializer_class = ProductSerializer
-    queryset = Product.objects.all()
+    queryset = Product.objects.all().order_by("id")
 
     def list(self, request, *args, **kwargs):
         debug_task()

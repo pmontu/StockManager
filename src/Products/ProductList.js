@@ -39,6 +39,7 @@ function ProductList() {
       <table>
         <tbody>
           <tr>
+            <th>ID</th>
             <th>Name</th>
             <th>SKU</th>
             <th>Description</th>
@@ -46,6 +47,7 @@ function ProductList() {
           </tr>
           {products.map(product => (
             <tr key={product.id}>
+              <td>{product.id}</td>
               <td>{product.name}</td>
               <td>{product.sku}</td>
               <td>{product.description}</td>
