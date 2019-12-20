@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { baseURL } from "./config";
-const PAGE_SIZE = 20;
+import { baseURL } from "../config";
+import Paginator from "./Paginator";
+const PAGE_SIZE = 10;
 
 function ProductList() {
   let [products, setProducts] = useState([]);
   let [isLoadingTable, setIsLoadingTable] = useState(false);
-  let [pages, setPages] = useState(-1);
+  let [maxPages, setMaxPages] = useState(-1);
   let [page, setPage] = useState(1);
 
   useEffect(() => {
@@ -14,12 +15,12 @@ function ProductList() {
       .then(res => res.json())
       .then(json => {
         setProducts(json.results);
-        setPages(Math.ceil(json.count / PAGE_SIZE));
+        setMaxPages(Math.ceil(json.count / PAGE_SIZE));
         setIsLoadingTable(false);
       });
   }, [page]);
 
-  if (pages === -1) return "no data yet";
+  if (maxPages === -1) return "no data yet";
 
   return (
     <>
@@ -39,14 +40,7 @@ function ProductList() {
           ))}
         </tbody>
       </table>
-      {Array(pages)
-        .fill()
-        .map((val, idx) => idx + 1)
-        .map(pageNum => (
-          <button key={pageNum} onClick={() => setPage(pageNum)}>
-            {pageNum}
-          </button>
-        ))}
+      <Paginator page={page} setPage={setPage} maxPages={maxPages} />
     </>
   );
 }
