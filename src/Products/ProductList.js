@@ -24,6 +24,7 @@ function ProductList() {
 
   return (
     <>
+      <Paginator page={page} setPage={setPage} maxPages={maxPages} />
       <table>
         <tbody>
           <tr>
