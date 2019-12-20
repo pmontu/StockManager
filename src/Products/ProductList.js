@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { baseURL } from "../config";
 import Paginator from "./Paginator";
 const PAGE_SIZE = 10;
@@ -8,6 +9,7 @@ function ProductList() {
   let [isLoadingTable, setIsLoadingTable] = useState(false);
   let [maxPages, setMaxPages] = useState(-1);
   let [page, setPage] = useState(1);
+  let history = useHistory();
 
   useEffect(() => {
     setIsLoadingTable(true);
@@ -31,12 +33,18 @@ function ProductList() {
             <th>Name</th>
             <th>SKU</th>
             <th>Description</th>
+            <th>Actions</th>
           </tr>
           {products.map(product => (
             <tr key={product.id}>
               <td>{product.name}</td>
               <td>{product.sku}</td>
               <td>{product.description}</td>
+              <td>
+                <button onClick={() => history.push(`/products/${product.id}`)}>
+                  edit
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
