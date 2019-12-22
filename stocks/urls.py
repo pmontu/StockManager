@@ -1,12 +1,19 @@
-from .views import ProductViewSet, upload_view, delete_all
-from rest_framework.routers import DefaultRouter
+from .views import ProductViewSet, upload_view
+from rest_framework.routers import SimpleRouter
 from django.urls import path
 
-router = DefaultRouter()
+
+class SimpleRouterWithDeleteAll(SimpleRouter):
+    def __init__(self, *args, **kwargs):
+        self.routes[0].mapping["delete"] = 'destroy_all'
+        super().__init__(*args, **kwargs)
+
+
+router = SimpleRouterWithDeleteAll()
 router.register(r'products', ProductViewSet, basename='product')
 urlpatterns = router.urls
 
 urlpatterns += [
     path('upload-product-csv/', upload_view),
-    path('products', delete_all)
+    # path('products/', delete_all)
 ]

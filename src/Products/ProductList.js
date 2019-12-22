@@ -32,6 +32,7 @@ function ProductList() {
   if (error) return `${error}`;
   if (isLoadingTable) return "loading...";
   if (maxPages === -1) return "no data yet";
+  if (products.length === 0) return "no data to show, upload to continue";
 
   return (
     <>
