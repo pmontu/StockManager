@@ -1,16 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import FileUploadProgress from "react-fileupload-progress";
 import { baseURL } from "../config";
 
 function ProductActions() {
   let [isLoading, setIsLoading] = useState(false);
   let [error, setError] = useState(undefined);
+  let [progress, setProgress] = useState({});
+
+  useEffect(() => {
+    // var es = new window.ReconnectingEventSource(`${baseURL}/events/`);
+    // es.addEventListener(
+    //   "message",
+    //   function(e) {
+    //     console.log(e.data);
+    //   },
+    //   false
+    // );
+
+    let eventSource = new EventSource(`${baseURL}/events/`);
+    eventSource.onmessage = function(event) {
+      console.log("New message", event.data);
+    };
+  }, []);
 
   if (error) return `${error}`;
   if (isLoading) return "loading...";
 
   return (
     <>
+      {/* Progress:
+      {status.map((s, i) => )}
+      <br /> */}
       Upload:
       <FileUploadProgress
         key="ex1"

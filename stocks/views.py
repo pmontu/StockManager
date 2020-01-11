@@ -28,5 +28,15 @@ def upload_view(request):
     serializer = CSVFileSerializer(data=request.FILES)
     serializer.is_valid()
     csv_file = serializer.save()
-    copy_records_from_csv_file_to_product_table(csv_file.id)
+    copy_records_from_csv_file_to_product_table.delay(csv_file.id)
     return HttpResponse(f"uploaded CSV#{csv_file.id} {csv_file.file}")
+
+
+@csrf_exempt
+def publish_progress(request):
+    send_event(
+        'test',
+        'message',
+        request.POST,
+    )
+    return HttpResponse("OK")

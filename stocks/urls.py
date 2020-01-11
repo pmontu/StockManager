@@ -1,4 +1,4 @@
-from .views import ProductViewSet, upload_view
+from .views import ProductViewSet, upload_view, publish_progress
 from rest_framework.routers import SimpleRouter
 from django.urls import path
 
@@ -15,5 +15,6 @@ urlpatterns = router.urls
 
 urlpatterns += [
     path('upload-product-csv/', upload_view),
+    path('upload-progress/', publish_progress)
     # path('products/', delete_all)
 ]

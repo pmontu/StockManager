@@ -16,8 +16,12 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
+from django.views.generic import RedirectView
+# from django.shortcuts import render
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('stocks/', include('stocks.urls')),
+    path('', RedirectView.as_view(url='/static/index.html')),
+    # path("", lambda req: render(req, "index.html"))
 ]

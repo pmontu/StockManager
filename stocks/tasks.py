@@ -3,6 +3,8 @@ from .models import CSVFile, Product
 from celery import shared_task
 from django.db import transaction
 import csv
+import requests
+from django.conf import settings
 
 
 @shared_task
@@ -19,7 +21,16 @@ def copy_records_from_csv_file_to_product_table(csv_file_id):
                         'description': row["description"]
                     },
                 )
-                print(idx, created, row["sku"])
-                if idx >= 100:
-                    break
+                if idx % 100 == 0:
+                    print(idx, "saved")
+                    url = (
+                        f"{settings.CELERY_SERVER_URL}"
+                        "/stocks/upload-progress/"
+                    )
+                    res = requests.post(url, data={
+                        'fileId': csv_file_id,
+                        "row": idx
+                    })
+                    print(f"{res.text} {res.status_code}")
+
     print("completed processing file", csv_file.file)
