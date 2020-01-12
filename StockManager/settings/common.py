@@ -170,5 +170,7 @@ REST_FRAMEWORK = {
 
 CELERY_SERVER_URL = "http://127.0.0.1"
 
+REDIS_URL = "redis://"
+
 # Activate Django-Heroku.
 django_heroku.settings(locals())

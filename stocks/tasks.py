@@ -10,7 +10,7 @@ import csv
 @shared_task
 def copy_records_from_csv_file_to_product_table(csv_file_id):
     csv_file = CSVFile.objects.get(id=csv_file_id)
-    with open(csv_file.file.name) as file:
+    with open(csv_file.file.path) as file:
         reader = csv.DictReader(file)
         with transaction.atomic():
             for idx, row in enumerate(reader):
