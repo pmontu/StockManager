@@ -11,23 +11,34 @@ function ProductList() {
   let [page, setPage] = useState(1);
   let [error, setError] = useState(undefined);
   let history = useHistory();
+  let [esIsLoaded, setEsIsLoaded] = useState(false);
 
   useEffect(() => {
-    setIsLoadingTable(true);
-    fetch(`${baseURL}/stocks/products/?page=${page}`)
-      .then(res => {
-        if (!res.ok) throw new Error(`${res.status}:${res.statusText}`);
-        return res.json();
-      })
-      .then(json => {
-        setProducts(json.results);
-        setMaxPages(Math.ceil(json.count / PAGE_SIZE));
-        setIsLoadingTable(false);
-      })
-      .catch(e => {
-        setError(e);
-      });
-  }, [page]);
+    let eventSource = new EventSource(`${baseURL}/events/`);
+    eventSource.onmessage = function(event) {
+      console.log("New message", event.data);
+    };
+    setEsIsLoaded(true);
+  }, []);
+
+  useEffect(() => {
+    if (esIsLoaded) {
+      setIsLoadingTable(true);
+      fetch(`${baseURL}/stocks/products/?page=${page}`)
+        .then(res => {
+          if (!res.ok) throw new Error(`${res.status}:${res.statusText}`);
+          return res.json();
+        })
+        .then(json => {
+          setProducts(json.results);
+          setMaxPages(Math.ceil(json.count / PAGE_SIZE));
+          setIsLoadingTable(false);
+        })
+        .catch(e => {
+          setError(e);
+        });
+    }
+  }, [page, esIsLoaded]);
 
   if (error) return `${error}`;
   if (isLoadingTable) return "loading...";

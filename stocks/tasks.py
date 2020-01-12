@@ -22,15 +22,15 @@ def copy_records_from_csv_file_to_product_table(csv_file_id):
                     },
                 )
                 if idx % 100 == 0:
-                    print(idx, "saved")
-                    url = (
-                        f"{settings.CELERY_SERVER_URL}"
-                        "/stocks/upload-progress/"
-                    )
-                    res = requests.post(url, data={
-                        'fileId': csv_file_id,
-                        "row": idx
-                    })
-                    print(f"{res.text} {res.status_code}")
+                    print(f"{idx} saved")
+                    # url = (
+                    #     f"{settings.CELERY_SERVER_URL}"
+                    #     "/stocks/upload-progress/"
+                    # )
+                    # res = requests.post(url, data={
+                    #     'fileId': csv_file_id,
+                    #     "row": idx
+                    # })
+                    # print(f"{res.text} {res.status_code}")
 
     print("completed processing file", csv_file.file)

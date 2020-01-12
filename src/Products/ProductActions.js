@@ -16,11 +16,6 @@ function ProductActions() {
     //   },
     //   false
     // );
-
-    let eventSource = new EventSource(`${baseURL}/events/`);
-    eventSource.onmessage = function(event) {
-      console.log("New message", event.data);
-    };
   }, []);
 
   if (error) return `${error}`;
