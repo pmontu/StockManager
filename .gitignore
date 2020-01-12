@@ -30,7 +30,6 @@ yarn-error.log*
 
 /staticfiles
 /static
-/uploads
 
 *.ipynb
 .ipynb_checkpoints/
