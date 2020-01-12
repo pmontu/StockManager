@@ -1,10 +1,10 @@
 
-from .models import CSVFile, Product
+from .models import CSVFile  # , Product
 from celery import shared_task
-from django.db import transaction
-import csv
-import requests
-from django.conf import settings
+# from django.db import transaction
+# import csv
+# import requests
+# from django.conf import settings
 
 
 @shared_task
