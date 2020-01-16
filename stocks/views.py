@@ -1,12 +1,13 @@
-from .serializers import ProductSerializer, CSVFileSerializer
 from rest_framework.viewsets import ModelViewSet
-from .models import Product
 from StockManager.celery import debug_task
-from .tasks import copy_records_from_csv_file_to_product_table
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django_eventstream import send_event
 from rest_framework.response import Response
+from .models import Product
+from .tasks import copy_records_from_csv_file_to_product_table
+from .serializers import ProductSerializer, CSVFileSerializer
+from .utils import upload_file_to_dropbox
 
 
 class ProductViewSet(ModelViewSet):
@@ -28,10 +29,19 @@ def upload_view(request):
     serializer = CSVFileSerializer(data=request.FILES)
     serializer.is_valid()
     csv_file = serializer.save()
-    with open(csv_file.file.path) as file:
-        print(file)
-    # copy_records_from_csv_file_to_product_table.delay(csv_file.id)
-    return HttpResponse(f"uploaded CSV#{csv_file.id} {csv_file.file}")
+    try:
+        dbx_path = upload_file_to_dropbox(
+            csv_file.file.path,
+            csv_file.file.name
+        )
+    except Exception as e:
+        return HttpResponse(f"upload to dropbox failed: {e}")
+    else:
+        csv_file.dropbox_path = dbx_path
+        csv_file.save()
+        copy_records_from_csv_file_to_product_table.delay(csv_file.id)
+    return HttpResponse(
+        f"uploaded CSV#{csv_file.id} to server: {csv_file.file}")
 
 
 @csrf_exempt

@@ -16,6 +16,7 @@ django-eventstream = "*"
 django-cors-headers = "*"
 django-extensions = "*"
 redis = "*"
+dropbox = "*"
 
 [dev-packages]
 django-extensions = "*"

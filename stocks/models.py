@@ -10,3 +10,4 @@ class Product(models.Model):
 
 class CSVFile(models.Model):
     file = models.FileField(upload_to='uploads/')
+    dropbox_path = models.TextField(blank=True, null=True)
